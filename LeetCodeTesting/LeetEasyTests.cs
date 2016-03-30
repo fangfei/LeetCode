@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LeetCodeEasy;
+using System.Collections.Generic;
 
 namespace LeetCodeEasy.Tests
 {
     [TestClass()]
-    public class UnitTest1
+    public class LeetEasyTests
     {
 
         private TestContext testContextInstance;

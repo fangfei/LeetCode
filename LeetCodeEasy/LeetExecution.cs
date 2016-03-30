@@ -10,6 +10,22 @@ namespace LeetCodeEasy
     {
         static void Main(string[] args)
         {
+            long a = 100;
+            long b = 3;
+            long c = a / b;
+            long d = a % b;
+
+        }
+    }
+
+    public class TreeNode
+    {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+        public TreeNode(int x)
+        {
+            val = x;
         }
     }
 
