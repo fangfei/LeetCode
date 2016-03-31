@@ -263,19 +263,52 @@ namespace LeetMedium
                 return;
             }
 
-            path.Add(root.val);
-
             if (root.left == null && root.right == null)
             {
                 if (root.val == sum)
                 {
-                    rst.Add(path);
-                    path.Clear();
+                    path.Add(root.val);
+                    rst.Add(new List<int>(path));
+                    path.RemoveAt(path.Count - 1);
+                }
+                return;
+            }
+
+            path.Add(root.val);
+            Leet113_helper(root.left, sum - root.val, ref path, ref rst);
+            path.RemoveAt(path.Count - 1);
+
+            path.Add(root.val);
+            Leet113_helper(root.right, sum - root.val, ref path, ref rst);
+            path.RemoveAt(path.Count - 1);
+        }
+
+        public int Leet230_KthSmallest(TreeNode root, int k)
+        {
+            Stack<TreeNode> stack = new Stack<TreeNode>();
+
+            TreeNode p = root;
+            int result = 0;
+
+            while (stack.Count != 0 || p != null)
+            {
+                if (p != null)
+                {
+                    stack.Push(p);
+                    p = p.left;
+                }
+                else {
+                    TreeNode t = stack.Pop();
+                    k--;
+                    if (k == 0)
+                    {
+                        result = t.val;
+                    }
+                    p = t.right;
                 }
             }
 
-            Leet113_helper(root.left, sum - root.val, ref path, ref rst);
-            Leet113_helper(root.right, sum - root.val, ref path, ref rst);
+            return result;
         }
     }
 }
