@@ -310,5 +310,43 @@ namespace LeetMedium
 
             return result;
         }
+
+        public int Leet200_NumIslands(char[,] grid)
+        {
+            int row = grid.GetLength(0);
+            int col = grid.GetLength(1);
+            bool[,] flag = new bool[row, col];
+
+            int rst = 0;
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    if (grid[i, j] == '1' && !flag[i, j])
+                    {
+                        rst++;
+                        Leet200_helper(ref flag, grid, i, j);
+                    }
+                }
+            }
+
+            return rst;
+        }
+
+        private void Leet200_helper(ref bool[,] flag, char[,] grid, int r, int c)
+        {
+            int row = flag.GetLength(0);
+            int col = flag.GetLength(1);
+
+            if (r < 0 || c < 0 || r >= row || c >= col || flag[r, c] || grid[r, c] == '0')
+            {
+                return;
+            }
+            flag[r, c] = true;
+            Leet200_helper(ref flag, grid, r, c + 1);
+            Leet200_helper(ref flag, grid, r, c - 1);
+            Leet200_helper(ref flag, grid, r + 1, c);
+            Leet200_helper(ref flag, grid, r - 1, c);
+        }
     }
 }
