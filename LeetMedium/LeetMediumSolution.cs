@@ -348,5 +348,10 @@ namespace LeetMedium
             Leet200_helper(ref flag, grid, r + 1, c);
             Leet200_helper(ref flag, grid, r - 1, c);
         }
+
+        public int Leet130_SurroundedRegions(char[,] grid)
+        {
+            return 0;
+        }
     }
 }
