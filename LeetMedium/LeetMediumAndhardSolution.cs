@@ -17,7 +17,15 @@ namespace LeetMedium
         }
     }
 
-    public class LeetMediumSolution
+    public class Interval
+    {
+        public int start;
+        public int end;
+        public Interval() { start = 0; end = 0; }
+        public Interval(int s, int e) { start = s; end = e; }
+    }
+
+    public class LeetMediumAndhardSolution
     {
         public IList<int> Leet094_InorderTraversal(TreeNode root)
         {
@@ -351,7 +359,27 @@ namespace LeetMedium
 
         public int Leet130_SurroundedRegions(char[,] grid)
         {
-            return 0;
+            return 1;
+        }
+
+        public IList<Interval> Leet056_merge(IList<Interval> intervals)
+        {
+            var res = new List<Interval>();
+            intervals = intervals.OrderBy(x => x.start).ToList();
+
+            for (int i = 0; i < intervals.Count; i++)
+            {
+                var newInterval = new Interval(intervals[i].start, intervals[i].end);
+                while (i < intervals.Count - 1 && newInterval.end >= intervals[i + 1].start)
+                {
+                    newInterval.end = Math.Max(newInterval.end, intervals[i + 1].end);
+                    i++;
+                }
+
+                res.Add(newInterval);
+            }
+
+            return res;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace LeetMedium.Tests
         [TestMethod()]
         public void Leet094_InorderTraversalTest()
         {
-            LeetMediumSolution leetMedium = new LeetMediumSolution();
+            LeetMediumAndhardSolution leetMedium = new LeetMediumAndhardSolution();
             TreeNode root = new TreeNode(1);
             root.right = new TreeNode(2);
             root.right.left = new TreeNode(3);
@@ -27,7 +27,7 @@ namespace LeetMedium.Tests
         [TestMethod()]
         public void Leet318_MaxProductTest()
         {
-            LeetMediumSolution leetMedium = new LeetMediumSolution();
+            LeetMediumAndhardSolution leetMedium = new LeetMediumAndhardSolution();
             string[] tst = new string[] { "abcw", "baz", "foo", "bar", "xtfn", "abcdef" };
             Assert.AreEqual(16, leetMedium.Leet318_MaxProduct(tst));
         }
@@ -35,7 +35,7 @@ namespace LeetMedium.Tests
         [TestMethod()]
         public void Leet331_IsValidSerializationTest()
         {
-            LeetMediumSolution leetMedium = new LeetMediumSolution();
+            LeetMediumAndhardSolution leetMedium = new LeetMediumAndhardSolution();
             string tst = "9,3,4,#,#,1,#,#,2,#,6,#,#";
             Assert.IsTrue(leetMedium.Leet331_IsValidSerialization(tst));
             tst = "#";
@@ -45,7 +45,7 @@ namespace LeetMedium.Tests
         [TestMethod()]
         public void Leet113_PathSumTest()
         {
-            LeetMediumSolution leetMedium = new LeetMediumSolution();
+            LeetMediumAndhardSolution leetMedium = new LeetMediumAndhardSolution();
             TreeNode root = new TreeNode(5);
             root.left = new TreeNode(4);
             root.right = new TreeNode(8);
