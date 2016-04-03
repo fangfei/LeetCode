@@ -9,6 +9,19 @@ using System.Threading.Tasks;
 namespace LeetMedium.Tests
 {
     [TestClass()]
+    public class LeetMediumAndHardSolutionTests
+    {
+        [TestMethod()]
+        public void Leet004_FindMedianSortedArraysTest()
+        {
+            LeetMediumAndhardSolution leetMediumHard = new LeetMediumAndhardSolution();
+            int[] nums1 = new int[] { 1 };
+            int[] nums2 = new int[] { 2 };
+            leetMediumHard.Leet004_FindMedianSortedArrays(nums1, nums2);
+        }
+    }
+
+    [TestClass()]
     public class LeetMediumSolutionTests
     {
         [TestMethod()]

@@ -52,7 +52,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="LeetEasyTests.cs" />
-    <Compile Include="LeetMediumSolutionTests.cs" />
+    <Compile Include="LeetMediumAndHardSolutionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,9 +60,9 @@
       <Project>{dd2b41ba-65d1-4f72-b8b4-8585ab6a34ad}</Project>
       <Name>LeetCodeEasy</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LeetMedium\LeetMedium.csproj">
+    <ProjectReference Include="..\LeetMedium\LeetMediumAndHard.csproj">
       <Project>{A44AFA28-D0FA-4899-A9B6-83C9805EBDA2}</Project>
-      <Name>LeetMedium</Name>
+      <Name>LeetMediumAndHard</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

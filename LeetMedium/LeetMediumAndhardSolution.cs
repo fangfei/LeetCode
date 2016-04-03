@@ -381,5 +381,98 @@ namespace LeetMedium
 
             return res;
         }
+
+        public IList<Interval> Leet057_Insert(IList<Interval> intervals, Interval newInterval)
+        {
+            var rst = new List<Interval>();
+            var start = newInterval.start;
+            var end = newInterval.end;
+
+            for (int i = 0; i < intervals.Count; i++)
+            {
+                while (i < intervals.Count && !(intervals[i].end < start || end < intervals[i].start))
+                {
+                    start = Math.Min(start, intervals[i].start);
+                    end = Math.Max(end, intervals[i].end);
+                    i++;
+                }
+                if (i < intervals.Count) rst.Add(intervals[i]);
+            }
+
+            rst.Add(new Interval(start, end));
+            return rst.OrderBy(x => x.start).ToList();
+        }
+
+        public double Leet004_FindMedianSortedArrays(int[] nums1, int[] nums2)
+        {
+
+            int[] merged = Leet004_merge(nums1, nums2);
+
+            int size = merged.Length;
+
+            double rst;
+            if (size == 0)
+            {
+                return 0;
+            }
+            if (size == 1)
+            {
+                return merged[0];
+            }
+
+            if (size % 2 == 0)
+            {
+                rst = (merged[size / 2] + merged[size / 2 + 1]) / 2.0;
+            }
+            else
+            {
+                rst = merged[size / 2 + 1];
+            }
+
+            return rst;
+        }
+
+        private int[] Leet004_merge(int[] nums1, int[] nums2)
+        {
+            if (nums1 == null || nums1.Length == 0)
+            {
+                return nums2;
+            }
+            if (nums2 == null || nums2.Length == 0)
+            {
+                return nums1;
+            }
+
+            int[] rst = new int[nums1.Length + nums2.Length];
+            int i = 0, j = 0, k = 0;
+
+            while (i < nums1.Length && j < nums2.Length)
+            {
+                if (nums1[i] <= nums2[j])
+                {
+                    rst[k++] = nums1[i++];
+                }
+                else
+                {
+                    rst[k++] = nums2[j++];
+                }
+            }
+            if (i == nums1.Length)
+            {
+                for (; j < nums2.Length; j++)
+                {
+                    rst[k++] = nums2[j];
+                }
+            }
+            if (j == nums2.Length)
+            {
+                for (; i < nums1.Length; i++)
+                {
+                    rst[k++] = nums1[i];
+                }
+            }
+
+            return rst;
+        }
     }
 }
