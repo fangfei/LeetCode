@@ -474,5 +474,74 @@ namespace LeetMedium
 
             return rst;
         }
+
+        public double Leet004_FindMedianSortedArrays2(int[] nums1, int[] nums2)
+        {
+            int l1 = nums1.Length;
+            int l2 = nums2.Length;
+
+            if ((l1 + l2) % 2 == 0)
+            {
+                int m1 = Leet004_findkth(nums1, 0, l1 - 1, nums2, 0, l2 - 1, (l1 + l2) / 2);
+                int m2 = Leet004_findkth(nums1, 0, l1 - 1, nums2, 0, l2 - 1, (l1 + l2) / 2+1);
+                return (m1 + m2) / 2.0;
+            }
+            else
+            {
+                return Leet004_findkth(nums1, 0, l1 - 1, nums2, 0, l2 - 1, (l1 + l2) / 2+1) / 1.0;
+            }
+        }
+
+        private int Leet004_findkth(int[] nums1, int nums1Start, int nums1End,
+                              int[] nums2, int nums2Start, int nums2End,
+                              int k)
+        {
+            int sizeNums1 = nums1End - nums1Start +1;
+            int sizeNums2 = nums2End - nums2Start +1;
+            if (nums1Start>nums1End)
+            {
+                return nums2[Math.Max(Math.Min(nums2End, k-1 ), 0)];
+            }
+            if (nums2Start > nums2End)
+            {
+                return nums1[Math.Max(Math.Min(nums1End, k-1 ), 0)];
+            }
+            if (sizeNums1 > sizeNums2)
+            {
+                return Leet004_findkth(nums2, nums2Start, nums2End, nums1, nums1Start, nums1End, k);
+            }
+
+            if (sizeNums1 == 0 && sizeNums2 > 0)
+            {
+                return nums2[nums2End];
+            }
+
+            if (k <= 1)
+            {
+                return Math.Min(nums1[nums1Start], nums2[nums2Start]);
+            }
+
+            int a1 = Math.Min(sizeNums1, k / 2);
+            int a2 = Math.Min(sizeNums2, k / 2);
+            int nums1Index = a1-1+nums1Start;
+            int nums2Index = a2-1+nums2Start;
+
+            if (nums1[nums1Index] < nums2[nums2Index])
+            {
+                return Leet004_findkth(nums1, nums1Index + 1, nums1End,
+                               nums2, nums2Start, nums2Index,
+                               k - a1);
+            }
+            else if (nums1[nums1Index] > nums2[nums2Index])
+            {
+                return Leet004_findkth(nums1, nums1Start, nums1Index,
+                               nums2, nums2Index + 1, nums2End,
+                               k - a2);
+            }
+            else
+            {
+                return nums1[nums1Index];
+            }
+        }
     }
 }
