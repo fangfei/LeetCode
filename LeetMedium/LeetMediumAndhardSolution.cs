@@ -543,5 +543,82 @@ namespace LeetMedium
                 return nums1[nums1Index];
             }
         }
+
+
+        public IList<IList<int>> Leet040_CombinationSum2(int[] candidates, int target)
+        {
+            if (candidates == null || candidates.Length == 0)
+            {
+                return new List<IList<int>>();
+            }
+            Dictionary<string, IList<int>> map = new Dictionary<string, IList<int>>();
+            Array.Sort(candidates);
+            Leet040_sumrecursive(candidates, new List<int>(), 0, target, ref map);
+
+            return map.Values.ToList();
+        }
+
+        private void Leet040_sumrecursive(
+            int[] candidates,
+            List<int> arr,
+            int index,
+            int target,
+            ref Dictionary<string, IList<int>> result)
+        {
+            if (target <= 0)
+            {
+                string key = string.Join(",", arr);
+                if (!result.ContainsKey(key))
+                {
+                    result.Add(key, new List<int>(arr));
+                }
+                return;
+            }
+
+            for (int i = index; i < candidates.Length && target >= candidates[i]; i++)
+            {
+                var c = candidates[i];
+                arr.Add(c);
+                Leet040_sumrecursive(candidates, arr, i + 1, target - c, ref result);
+                arr.RemoveAt(arr.Count - 1);
+            }
+        }
+
+        public IList<IList<int>> Leet216_CombinationSum3(int k, int n)
+        {
+            var rst = new List<IList<int>>();
+            if (n > 45 || k > 9 || k > n)
+            {
+                return rst;
+            }
+
+            Leet216_helper(new List<int>(), 1, n, k,ref rst);
+
+            return rst;
+        }
+
+        private void Leet216_helper(List<int> arr, int index, int target, int numcounter, ref List<IList<int>> result)
+        //IList<int> current
+        {
+            if (arr.Count > numcounter || target < 0)
+            {
+                return;
+            }
+            if (target == 0)
+            {
+                // add result
+                if (arr.Count == numcounter)
+                {
+                    result.Add(new List<int>(arr));
+                }
+                return;
+            }
+            for (int i = index; i < 10 && target >= i; i++)
+            {
+                arr.Add(i);
+                Leet216_helper(arr, i+1, target - i, numcounter, ref result);
+                arr.RemoveAt(arr.Count - 1);
+            }
+        }
     }
 }
