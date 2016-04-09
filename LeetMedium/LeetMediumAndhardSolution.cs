@@ -621,4 +621,62 @@ namespace LeetMedium
             }
         }
     }
+
+    public class MedianFinder
+    {
+
+        List<double> values;
+
+        public MedianFinder()
+        {
+            values = new List<double>();
+        }
+
+        // Adds a num into the data structure.
+        public void AddNum(double num)
+        {
+            int pos = helper_getinsertposition(values, num);
+            if (pos == values.Count)
+            {
+                values.Add(num);
+            }
+            else
+            {
+                values.Insert(pos, num);
+            }
+        }
+
+        // return the median of current data stream
+        public double FindMedian()
+        {
+            int allCount = values.Count;
+
+            if (allCount == 0) throw new Exception("array is empty");
+
+            if (allCount % 2 == 0)
+                return (values[allCount / 2 - 1] + values[allCount / 2]) / 2;
+            else
+                return values[allCount / 2];
+        }
+
+        private int helper_getinsertposition(List<double> array, double number)
+        {
+            int rst = 0;
+            int start = 0;
+            int end = array.Count - 1;
+            while (start <= end)
+            {
+                int mid = start + (end - start) / 2;
+                if (array[mid] > number)
+                {
+                    end = mid - 1;
+                }
+                else
+                {
+                    start = mid + 1;
+                }
+            }
+            return start;
+        }
+    }
 }
