@@ -24,9 +24,17 @@ namespace LeetMedium.Tests
         public void Leet004_FindMedianSortedArrays2Test()
         {
             LeetMediumAndhardSolution leetMediumHard = new LeetMediumAndhardSolution();
-            int[] nums1 = new int[] { 1,2 };
-            int[] nums2 = new int[] { 1,2 };
+            int[] nums1 = new int[] { 1, 2 };
+            int[] nums2 = new int[] { 1, 2 };
             leetMediumHard.Leet004_FindMedianSortedArrays2(nums1, nums2);
+        }
+
+        [TestMethod()]
+        public void Leet044_IsMatchTest()
+        {
+            LeetMediumAndhardSolution leetMediumHard = new LeetMediumAndhardSolution();
+            bool a=leetMediumHard.Leet044_IsMatch("aa", "a");
+            Assert.IsFalse(a);
         }
     }
 

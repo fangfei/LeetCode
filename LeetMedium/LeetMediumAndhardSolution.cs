@@ -620,6 +620,65 @@ namespace LeetMedium
                 arr.RemoveAt(arr.Count - 1);
             }
         }
+
+        public bool Leet044_IsMatch(string s, string p)
+        {
+            int recordSIndex = -1;
+            int recordPIndex = -1;
+
+            int i = 0;
+            int j = 0;
+            for (i = 0; i < s.Length;)
+            {
+                if (j >= p.Length)
+                {
+                    recordSIndex++;
+                    i = recordSIndex;
+                    j = recordPIndex;
+                }
+                else if ((j >= 0) && (s[i] == p[j] || p[j] == '?'))
+                {
+                    i++;
+                    j++;
+                }
+                else
+                {
+                    if (j >= 0 && p[j] == '*')
+                    {
+                        while ((j < p.Length) && (p[j] == '*'))
+                        {
+                            j++;
+                        }
+                        if (j == p.Length)
+                        {
+                            return true;
+                        }
+                        recordSIndex = i;
+                        recordPIndex = j;
+                    }
+                    else
+                    {
+                        if (recordPIndex >= 0)
+                        {
+                            recordSIndex++;
+                            i = recordSIndex;
+                            j = recordPIndex;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            while (j < p.Length && p[j] == '*')
+            {
+                j++;
+            }
+
+            return i == s.Length && j == p.Length;
+        }
     }
 
     public class MedianFinder
