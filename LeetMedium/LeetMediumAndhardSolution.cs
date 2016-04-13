@@ -679,6 +679,49 @@ namespace LeetMedium
 
             return i == s.Length && j == p.Length;
         }
+
+
+        public IList<string> Leet093_RestoreIpAddresses(string s)
+        {
+            List<string> rst = new List<string>();
+            if (s.Length > 12)
+            {
+                return rst;
+            }
+            Leet093_helper(s, 4, "", ref rst);
+            return rst;
+        }
+
+        public void Leet093_helper(string s, int k, string current, ref List<string> rst)
+        {
+            if (k == 0)
+            {
+                if (s == "") rst.Add(current);
+            }
+            else
+            {
+                for (int i = 1; i <= 3; i++)
+                {
+                    if (s.Length >= i && Leet093_validrange(s.Substring(0, i)))
+                    {
+                        if (k == 1)
+                        {
+                            Leet093_helper(s.Substring(i), k - 1, current + s.Substring(0, i), ref rst);
+                        }
+                        else
+                        {
+                            Leet093_helper(s.Substring(i), k - 1, current + s.Substring(0, i) + ".", ref rst);
+                        }
+                    }
+                }
+            }
+        }
+        public bool Leet093_validrange(string s)
+        {
+            if (string.IsNullOrEmpty(s) || s.Length > 3 || (s.Length > 1 && s[0] == '0')) return false;
+            int rst = Int32.Parse(s);
+            return rst <= 255 && rst >= 0;
+        }
     }
 
     public class MedianFinder
