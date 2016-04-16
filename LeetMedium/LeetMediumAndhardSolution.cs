@@ -722,6 +722,40 @@ namespace LeetMedium
             int rst = Int32.Parse(s);
             return rst <= 255 && rst >= 0;
         }
+
+        public IList<TreeNode> Leet095_GenerateTrees(int n)
+        {
+            return Leet095_helper(1, n);
+        }
+
+        private IList<TreeNode> Leet095_helper(int start, int end)
+        {
+            List<TreeNode> rst = new List<TreeNode>();
+            if (start > end)
+            {
+                rst.Add(null);
+                return rst;
+            }
+
+            for (int i = start; i <= end; i++)
+            {
+                IList<TreeNode> left = Leet095_helper(start, i - 1);
+                IList<TreeNode> right = Leet095_helper(i + 1, end);
+
+                for (int j = 0; j < left.Count(); j++)
+                {
+                    for (int k = 0; k < right.Count(); k++)
+                    {
+                        TreeNode current = new TreeNode(i);
+                        current.left = left[j];
+                        current.right = right[k];
+                        rst.Add(current);
+                    }
+                }
+            }
+
+            return rst;
+        }
     }
 
     public class MedianFinder
