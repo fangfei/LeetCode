@@ -33,8 +33,23 @@ namespace LeetMedium.Tests
         public void Leet044_IsMatchTest()
         {
             LeetMediumAndhardSolution leetMediumHard = new LeetMediumAndhardSolution();
-            bool a=leetMediumHard.Leet044_IsMatch("aa", "a");
+            bool a = leetMediumHard.Leet044_IsMatch("aa", "a");
             Assert.IsFalse(a);
+        }
+
+        [TestMethod()]
+        public void Leet240_SearchMatrixTest()
+        {
+            LeetMediumAndhardSolution leetMediumHard = new LeetMediumAndhardSolution();
+            int[,] a = new int[,] { { 1, 1 } };
+            leetMediumHard.Leet240_SearchMatrix(a, 0);
+        }
+
+        [TestMethod()]
+        public void Leet131_PartitionTest()
+        {
+            LeetMediumAndhardSolution leetMediumHard = new LeetMediumAndhardSolution();
+            leetMediumHard.Leet131_Partition("a");
         }
     }
 

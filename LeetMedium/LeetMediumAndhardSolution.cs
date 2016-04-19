@@ -756,6 +756,78 @@ namespace LeetMedium
 
             return rst;
         }
+
+        public bool Leet240_SearchMatrix(int[,] matrix, int target)
+        {
+            int row = matrix.GetLength(0);
+            int col = matrix.GetLength(1);
+
+            int i = row - 1;
+            int j = 0;
+
+            while (j <= col - 1 && i >= 0)
+            {
+                if (matrix[i, j] == target)
+                {
+                    return true;
+                }
+                else if (matrix[i, j] < target)
+                {
+                    j++;
+                }
+                else
+                {
+                    i--;
+                }
+            }
+
+            return false;
+        }
+
+        public IList<IList<string>> Leet131_Partition(string s)
+        {
+            List<IList<string>> rst = new List<IList<string>>();
+            List<string> interimRst = new List<string>();
+
+            Leet131_helper(s, 0, ref interimRst, ref rst);
+
+            return rst;
+        }
+
+        private void Leet131_helper(string s, int start,
+                            ref List<string> interimRst, ref List<IList<string>> rst)
+        {
+            if (start == s.Length)
+            {
+                List<string> tmp = new List<string>(interimRst);
+                rst.Add(tmp);
+                return;
+            }
+
+            for (int i = start; i < s.Length; i++)
+            {
+                if (Leet131_isPalindrome(s, start, i))
+                {
+                    interimRst.Add(s.Substring(start, i - start + 1));
+                    Leet131_helper(s, i + 1, ref interimRst, ref rst);
+                    interimRst.RemoveAt(interimRst.Count - 1);
+                }
+            }
+        }
+
+        private bool Leet131_isPalindrome(string s, int start, int end)
+        {
+            while (start < end)
+            {
+                if (s[start] != s[end])
+                {
+                    return false;
+                }
+                start++;
+                end--;
+            }
+            return true;
+        }
     }
 
     public class MedianFinder
