@@ -828,6 +828,73 @@ namespace LeetMedium
             }
             return true;
         }
+
+        public IList<int> Leet229_MajorityElement(int[] nums)
+        {
+            List<int> rst = new List<int>();
+            if (nums == null || nums.Length == 0)
+            {
+                return rst;
+            }
+
+            int m = 0, n = 0, countm = 0, countn = 0;
+
+
+            int sizecheck = nums.Length / 3;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == m)
+                {
+                    countm++;
+                }
+                else if (nums[i] == n)
+                {
+                    countn++;
+                }
+                else if (countm == 0)
+                {
+                    m = nums[i];
+                    countm = 1;
+                }
+                else if (countn == 0)
+                {
+                    n = nums[i];
+                    countn = 1;
+                }
+                else
+                {
+                    countm--;
+                    countn--;
+                }
+
+            }
+
+            countm = 0;
+            countn = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (m == nums[i])
+                {
+                    countm++;
+                }
+                else if (n == nums[i])
+                {
+                    countn++;
+                }
+            }
+
+            if (countm > sizecheck)
+            {
+                rst.Add(m);
+            }
+            if (countn > sizecheck)
+            {
+                rst.Add(n);
+            }
+
+
+            return rst;
+        }
     }
 
     public class MedianFinder
@@ -869,7 +936,6 @@ namespace LeetMedium
 
         private int helper_getinsertposition(List<double> array, double number)
         {
-            int rst = 0;
             int start = 0;
             int end = array.Count - 1;
             while (start <= end)

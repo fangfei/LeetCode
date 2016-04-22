@@ -51,6 +51,14 @@ namespace LeetMedium.Tests
             LeetMediumAndhardSolution leetMediumHard = new LeetMediumAndhardSolution();
             leetMediumHard.Leet131_Partition("a");
         }
+
+        [TestMethod()]
+        public void Leet229_MajorityElementTest()
+        {
+            LeetMediumAndhardSolution leetMediumHard = new LeetMediumAndhardSolution();
+            int[] a = new int[] { 1, 2 };
+            leetMediumHard.Leet229_MajorityElement(a);
+        }
     }
 
     [TestClass()]
