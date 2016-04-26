@@ -895,6 +895,101 @@ namespace LeetMedium
 
             return rst;
         }
+
+        public int LadderLength(string beginWord, string endWord, ISet<string> wordList)
+        {
+            Dictionary<string, int> map = new Dictionary<string, int>();
+            Queue<string> bfs = new Queue<string>();
+            bfs.Enqueue(beginWord);
+            map.Add(beginWord, 1);
+
+            while (bfs.Count > 0)
+            {
+                string current = bfs.Dequeue();
+
+                for (int i = 0; i < current.Length; i++)
+                {
+                    char[] newword = current.ToCharArray();
+                    for (char c = 'a'; c <= 'z'; c++)
+                    {
+                        newword[i] = c;
+                        string s = new string(newword);
+                        if (s == endWord)
+                        {
+                            return map[current] + 1;
+                        }
+                        if (!map.ContainsKey(s) && wordList.Contains(s))
+                        {
+                            bfs.Enqueue(s);
+                            map.Add(s, map[current] + 1);
+                        }
+                    }
+                }
+            }
+
+            return 0;
+        }
+
+        public int[] FindOrder(int numCourses, int[,] prerequisites)
+        {
+            List<int> rst = new List<int>();
+            if (numCourses == 0 || numCourses == 1)
+            {
+                return rst.ToArray();
+            }
+
+            var row = prerequisites.GetLength(0);
+
+            int[] dependencies = new int[numCourses];
+            bool[] visited = new bool[numCourses];
+
+            for (int i = 0; i < row; i++)
+            {
+                dependencies[prerequisites[i, 0]]++;
+            }
+
+            int count = 0;
+
+            while (count < numCourses)
+            {
+                List<int> currentselection = new List<int>();
+                for (int i = 0; i < numCourses; i++)
+                {
+                    if (dependencies[i] == 0 && !visited[i])
+                    {
+                        count++;
+                        visited[i] = true;
+                        currentselection.Add(i);
+                        rst.Add(i);
+                    }
+                }
+
+                if (currentselection.Count == 0)
+                {
+                    break;
+                }
+
+                foreach (var c in currentselection)
+                {
+                    for (int j = 0; j < row; j++)
+                    {
+                        if (prerequisites[j, 1] == c)
+                        {
+                            dependencies[prerequisites[j, 0]]--;
+                        }
+                    }
+                }
+            }
+
+            if (count >= numCourses)
+            {
+                return rst.ToArray();
+            }
+            else
+            {
+                return new int[0];
+            }
+        }
     }
 
     public class MedianFinder
@@ -953,4 +1048,107 @@ namespace LeetMedium
             return start;
         }
     }
+
+
+
+    class TrieNode
+    {
+        public List<TrieNode> children;
+        public char val;
+        public bool hasWord;
+
+        // Initialize your data structure here.
+        public TrieNode()
+        {
+            children = new List<TrieNode>();
+            hasWord = false;
+        }
+    }
+
+    public class WordDictionary
+    {
+        private TrieNode root;
+
+        public WordDictionary()
+        {
+            root = new TrieNode();
+        }
+
+        // Inserts a word into the trie.
+        public void AddWord(String word)
+        {
+            if (string.IsNullOrEmpty(word))
+            {
+                return;
+            }
+
+            var n = root;
+            var index = 0;
+
+            while (n.children.Count > 0 && index < word.Length)
+            {
+                var first = n.children.FirstOrDefault(x => x.val == word[index]);
+                if (first != null)
+                {
+                    n = first;
+                    index++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if (index < word.Length)
+            {
+                for (var i = index; i < word.Length; i++)
+                {
+                    var child = new TrieNode();
+                    child.val = word[i];
+                    n.children.Add(child);
+                    n = child;
+                }
+            }
+            n.hasWord = true;
+        }
+
+        // Returns if the word is in the trie.
+        public bool Search(string word)
+        {
+            return searchDfs(word, root, 0);
+        }
+
+        private bool searchDfs(string word, TrieNode node, int index)
+        {
+            if (index == word.Length)
+            {
+                return node.hasWord;
+            }
+
+            if (word[index] == '.')
+            {
+                foreach (var child in node.children)
+                {
+                    if (searchDfs(word, child, index + 1))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else
+            {
+                var newnode = node.children.FirstOrDefault(x => x.val == word[index]);
+                if (newnode == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return searchDfs(word, newnode, index + 1);
+                }
+            }
+        }
+    }
+
 }
