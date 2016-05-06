@@ -990,6 +990,79 @@ namespace LeetMedium
                 return new int[0];
             }
         }
+
+        public string Leet345_ReverseVowels(string s)
+        {
+            if (s == null || s.Length == 1)
+            {
+                return s;
+            }
+
+            char[] rst = s.ToArray();
+            int i = 0, j = rst.Length - 1;
+            while (i < j)
+            {
+                while (i < j && !Leet345_isVowelChar(rst[i]))
+                {
+                    i++;
+                }
+                while (j >i && !Leet345_isVowelChar(rst[j]))
+                {
+                    j--;
+                }
+                if (i < rst.Length && j >= 0)
+                {
+                    char tmp = rst[i];
+                    rst[i] = rst[j];
+                    rst[j] = tmp;
+                }
+
+                i++;
+                j--;
+            }
+
+            return new string(rst);
+        }
+
+        private bool Leet345_isVowelChar(char c)
+        {
+            return (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+                    c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U');
+        }
+
+        public int Leet128_LongestConsecutive(int[] nums)
+        {
+            Dictionary<int, bool> map = new Dictionary<int, bool>();
+            int rst = 0;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                map[nums[i]] = true;
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                int current = nums[i]-1;
+                int length = 1;
+                while (map.Count > 0 && map.ContainsKey(current))
+                {
+                    length++;
+                    map.Remove(current);
+                    current--;
+                }
+                current = nums[i]+1;
+                while (map.Count > 0 && map.ContainsKey(current))
+                {
+                    length++;
+                    map.Remove(current);
+                    current++;
+                }
+
+                rst = Math.Max(rst, length);
+            }
+
+            return rst;
+        }
     }
 
     public class MedianFinder
@@ -1149,6 +1222,71 @@ namespace LeetMedium
                 }
             }
         }
-    }
 
+
+    }
+    public class Solution
+    {
+        public IList<IList<string>> SolveNQueens(int n)
+        {
+            List<IList<string>> rst = new List<IList<string>>();
+
+            char[,] current = new char[n,n];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j=0;j< n;j++)
+                {
+                    current[i, j] = '.';
+                }
+            }
+
+            helper(0, rst, current);
+    
+
+        return rst;
+        }
+
+        private void helper(int row, List<IList<string>> rst, char[,] current)
+        {
+            int m = current.GetLength(0);
+            if (m == row)
+            {
+                // Add current to rst
+                List<string> tmp = new List<string>();
+                for (int i=0;i< m;i++)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    for (int j=0;j< m;j++)
+                    {
+                        sb.Append(current[i, j]);
+                    }
+                    tmp.Add(sb.ToString());
+                }
+                rst.Add(tmp);
+                return;
+            }
+
+            int n = current.GetLength(1);
+            for (int col = 0; col < n; col++)
+            {
+                if (validrst(current, row, col))
+                {
+                    current[row,col] = 'Q';
+                    helper(row + 1, rst, current);
+                    current[row, col] = '.';
+                }
+            }
+        }
+
+        private bool validrst(char[,] cur, int row, int col)
+        {
+            for (int i = 0; i < row; i++)
+                if (cur[i,col] == 'Q') return false;
+            for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--)
+                if (cur[i,j] == 'Q') return false;
+            for (int i = row - 1, j = col + 1; i >= 0 && j < cur.GetLength(1); i--, j++)
+                if (cur[i,j] == 'Q') return false;
+            return true;
+        }
+    }
 }

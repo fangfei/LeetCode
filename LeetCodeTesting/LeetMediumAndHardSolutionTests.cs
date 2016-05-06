@@ -59,6 +59,22 @@ namespace LeetMedium.Tests
             int[] a = new int[] { 1, 2 };
             leetMediumHard.Leet229_MajorityElement(a);
         }
+
+        [TestMethod()]
+        public void Leet345_ReverseVowelsTest()
+        {
+            LeetMediumAndhardSolution leetMediumHard = new LeetMediumAndhardSolution();
+            string s = "hello";
+            leetMediumHard.Leet345_ReverseVowels(s);
+        }
+
+        [TestMethod()]
+        public void Leet128_LongestConsecutiveTest()
+        {
+            LeetMediumAndhardSolution leetMediumHard = new LeetMediumAndhardSolution();
+            int[] a = new int[] { -1, 1, 0 };
+            leetMediumHard.Leet128_LongestConsecutive(a);
+        }
     }
 
     [TestClass()]
