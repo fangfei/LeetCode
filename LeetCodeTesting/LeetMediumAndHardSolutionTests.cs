@@ -75,6 +75,14 @@ namespace LeetMedium.Tests
             int[] a = new int[] { -1, 1, 0 };
             leetMediumHard.Leet128_LongestConsecutive(a);
         }
+
+        [TestMethod()]
+        public void Leet329_LongestIncreasingPathTest()
+        {
+            LeetMediumAndhardSolution leetMediumHard = new LeetMediumAndhardSolution();
+            int[,] a = new int[,] { {3,4,5 }, {3,2,6 }, {2,2,1 } };
+            leetMediumHard.Leet329_LongestIncreasingPath(a);
+        }
     }
 
     [TestClass()]

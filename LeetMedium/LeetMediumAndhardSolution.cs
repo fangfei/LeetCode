@@ -1063,6 +1063,51 @@ namespace LeetMedium
 
             return rst;
         }
+        public int Leet329_LongestIncreasingPath(int[,] matrix)
+        {
+            if (null == matrix)
+            {
+                return 0;
+            }
+            int row = matrix.GetLength(0);
+            int col = matrix.GetLength(1);
+
+            int rst = 0;
+            int[,] dp = new int[row, col];
+
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    rst = Math.Max(rst, Leet329_dfs(matrix, row, col, ref dp, i, j));
+                }
+            }
+            return rst;
+        }
+
+        private int Leet329_dfs(int[,] matrix, int row, int col, ref int[,] dp, int i, int j)
+        {
+            if (dp[i, j] != 0)
+            {
+                return dp[i, j];
+            }
+
+            int max = 1;
+            int[,] dirs = new int[,] { { 0, -1 }, { -1, 0 }, { 0, 1 }, { 1, 0 } };
+            for (int k = 0; k <= 3; k++)
+            {
+                int x = i + dirs[k, 0];
+                int y = j + dirs[k, 1];
+                if (x < 0 || x >= row || y < 0 || y >= col || matrix[x, y] <= matrix[i, j])
+                {
+                    continue;
+                }
+                int len = 1 + Leet329_dfs(matrix, row, col, ref dp, x, y);
+                max = Math.Max(max, len);
+            }
+            dp[i, j] = max;
+            return max;
+        }
     }
 
     public class MedianFinder
